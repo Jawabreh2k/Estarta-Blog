@@ -1,0 +1,26 @@
+* {
+  text-align: left;
+  background-color: black;
+  color: white;
+}
+
+h2 {
+  color: rgb(235, 133, 150);
+  cursor: pointer;
+}
+.search-field {
+  text-align: center;
+  border: 2px solid white;
+  background-color: white;
+  color: black;
+  margin-top: 1rem;
+  border-radius: 10px;
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 5px;
+}
+.change-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
