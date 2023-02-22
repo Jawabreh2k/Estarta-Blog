@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import useFetch from "../useFetch/useFetch";
+import useFetch from "../../CustomHooks/useFetch/useFetch";
 import { useNavigate } from "react-router-dom";
 import "./Blogpost.css";
 function BlogPost() {

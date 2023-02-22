@@ -3,7 +3,7 @@ import ErrorPage from "../ErrorPage/errorPage";
 import BlogList from "../BlogList/BlogList";
 import CreateBlog from "../CreateBlog/CreateBlog";
 import NavigationBar from "../NavigationBar/NavigationBar";
-import useFetch from "../useFetch/useFetch";
+import useFetch from "../../CustomHooks/useFetch/useFetch";
 import BlogPost from "../BlogPost/BlogPost";
 
 const MyRoutes = () => {

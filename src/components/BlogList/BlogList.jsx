@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../BlogList/BlogList.css";
 import { useNavigate } from "react-router-dom";
-import useFetch from "../useFetch/useFetch";
+import useFetch from "../../CustomHooks/useFetch/useFetch";
 
 function BlogList(props) {
   const navigate = useNavigate();
@@ -51,14 +51,19 @@ function BlogList(props) {
         <div key={blog?.id}>
           <div className="change-title">
             {editIndex === index ? (
-              <div>
+              <div className="change">
                 <input
+                  className="edit-input"
                   type="text"
                   value={editedTitle}
                   onChange={(e) => setEditedTitle(e.target.value)}
                 />
-                <button onClick={() => saveTitle(index)}>Save</button>
-                <button onClick={() => setEditIndex(-1)}>Close</button>
+                <button className="save" onClick={() => saveTitle(index)}>
+                  Save
+                </button>
+                <button className="close" onClick={() => setEditIndex(-1)}>
+                  Close
+                </button>
               </div>
             ) : (
               <div className="change-title">
@@ -78,6 +83,7 @@ function BlogList(props) {
           </div>
           <p>{blog?.content}</p>
           <p>{blog?.author}</p>
+          <hr />
         </div>
       ))}
     </div>
