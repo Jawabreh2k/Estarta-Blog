@@ -1,7 +1,8 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import useFetch from "../../CustomHooks/useFetch/useFetch";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
+import useFetch from "../../CustomHooks/useFetch/useFetch";
 import "./Blogpost.css";
 function BlogPost() {
   const blogId = Number(useParams().blogId);
@@ -21,6 +22,10 @@ function BlogPost() {
 
   return (
     <div>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Single blog</title>
+      </Helmet>
       {isLoading && <p>Loading...</p>}
       {!isLoading && (
         <div className="blogs">
