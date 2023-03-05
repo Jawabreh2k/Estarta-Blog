@@ -1,13 +1,13 @@
-import { useState } from "react";
 import MyRoutes from "./components/Routing/myroutes";
-
+import { Provider } from "react-redux";
+import store from "./redux/store";
 function App() {
-  const [blogs, setBlogs] = useState([]);
-
   return (
-    <div className="App">
-      <MyRoutes blogs={blogs} setBlogs={setBlogs} />
-    </div>
+    <Provider store={store}>
+      <div className="App">
+        <MyRoutes />
+      </div>
+    </Provider>
   );
 }
 

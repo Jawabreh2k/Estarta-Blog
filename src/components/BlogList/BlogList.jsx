@@ -1,67 +1,51 @@
-import "./BlogList.css";
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchBlogs } from "../../redux/blogsActions";
 import { useNavigate } from "react-router-dom";
-import { Helmet } from "react-helmet";
 import Blog from "../Blog/Blog";
-import useFetch from "../../CustomHooks/useFetch/useFetch";
+import "./BlogList.css";
 
-function BlogList({ blogs }) {
-  return (
-    <div>
-      {blogs.map((blog) => (
-        <Blog key={blog.id} blog={blog} />
-      ))}
-    </div>
-  );
-}
-
-BlogList = React.memo(BlogList);
-
-function Search({ onSearchChange }) {
-  return (
-    <div>
-      <input
-        placeholder="Search by name"
-        type="text"
-        onChange={onSearchChange}
-      />
-    </div>
-  );
-}
-
-function BlogListPage() {
+const BlogList = () => {
+  const dispatch = useDispatch();
+  const blogs = useSelector((state) => state.blogs.blogs);
+  const loading = useSelector((state) => state.blogs.loading);
   const [searchQuery, setSearchQuery] = useState("");
-  const [blogs, isLoading] = useFetch("http://localhost:7000/blogs");
-  const navigate = useNavigate();
 
-  const handleSearchChange = useCallback((event) => {
+  useEffect(() => {
+    dispatch(fetchBlogs());
+  }, [dispatch]);
+
+  const filteredBlogs = blogs.filter((blog) =>
+    blog.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const handleSearchInputChange = (event) => {
     setSearchQuery(event.target.value);
-  }, []);
-
-  const filteredBlogs = useMemo(() => {
-    if (!Array.isArray(blogs)) {
-      return [];
-    }
-
-    return blogs.filter((blog) => {
-      return blog.title.toLowerCase().includes(searchQuery.toLowerCase());
-    });
-  }, [blogs, searchQuery]);
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  };
 
   return (
     <div>
-      <Helmet>
-        <meta charSet="utf-8" />
-        <title>Home page</title>
-      </Helmet>
-      <Search onSearchChange={handleSearchChange} />
-      <BlogList blogs={filteredBlogs} />
+      <div className="test">
+        <h1>Blogs</h1>
+        <input
+          className="search-input"
+          type="text"
+          placeholder="Search blogs by title"
+          value={searchQuery}
+          onChange={handleSearchInputChange}
+        />
+      </div>
+      {loading ? (
+        <div>Loading blogs...</div>
+      ) : (
+        <ul className="main-page">
+          {filteredBlogs.map((blog) => (
+            <Blog key={blog.id} blog={blog} />
+          ))}
+        </ul>
+      )}
     </div>
   );
-}
+};
 
-export default BlogListPage;
+export default BlogList;

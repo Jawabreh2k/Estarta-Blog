@@ -1,5 +1,6 @@
 import React, { useState, memo } from "react";
 import { useNavigate } from "react-router-dom";
+import "./Blog.css";
 
 function Blog({ blog }) {
   const navigate = useNavigate();
@@ -23,14 +24,14 @@ function Blog({ blog }) {
   return (
     <div>
       {isEditing ? (
-        <div>
+        <div className="edit-btn">
           <input type="text" value={editedTitle} onChange={handleTitleChange} />
           <button onClick={handleSaveTitle}>Save</button>
           <button onClick={handleCancelEdit}>Cancel</button>
         </div>
       ) : (
-        <div>
-          <h2 onClick={() => navigate(`/blogs/${blog.id}`)}>{blog.title}</h2>
+        <div className="edit-btn">
+          <h3 onClick={() => navigate(`/blogs/${blog.id}`)}>{blog.title}</h3>
           <button onClick={() => setIsEditing(true)}>Edit</button>
         </div>
       )}

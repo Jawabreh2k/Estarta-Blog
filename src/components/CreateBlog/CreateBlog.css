@@ -23,11 +23,18 @@
   border-radius: 0.5rem;
   resize: none;
   width: 100%;
-  border: 1px solid white;
+
   border-radius: 10px;
 }
 
 .submit-btn {
   margin-top: 20px;
   cursor: pointer;
+}
+
+input {
+  border: 1px solid black;
+}
+textarea {
+  border: 1px solid black;
 }
