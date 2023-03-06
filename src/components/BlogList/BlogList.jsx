@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBlogs } from "../../redux/blogsActions";
-import { useNavigate } from "react-router-dom";
 import Blog from "../Blog/Blog";
 import "./BlogList.css";
 
@@ -15,13 +14,15 @@ const BlogList = () => {
     dispatch(fetchBlogs());
   }, [dispatch]);
 
-  const filteredBlogs = blogs.filter((blog) =>
-    blog.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredBlogs = useMemo(() => {
+    return blogs.filter((blog) =>
+      blog.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [blogs, searchQuery]);
 
-  const handleSearchInputChange = (event) => {
+  const handleSearchInputChange = useCallback((event) => {
     setSearchQuery(event.target.value);
-  };
+  }, []);
 
   return (
     <div>
@@ -48,4 +49,4 @@ const BlogList = () => {
   );
 };
 
-export default BlogList;
+export default React.memo(BlogList);
